@@ -2,7 +2,7 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 
 import styles from './ArticleParamsForm.module.scss';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useOutsideClickListener } from './hooks/useOutsideClickListener';
 import {
@@ -29,9 +29,6 @@ export const ArticleParamsForm = ({
 }: ArticleParamsFormProps) => {
 	// Логика отвечающая за открытие/закрытие формы
 	const [formIsOpen, setFormIsOpen] = useState<boolean>(false);
-	const toggleSideBar = () => {
-		setFormIsOpen(!formIsOpen);
-	};
 
 	const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -53,6 +50,10 @@ export const ArticleParamsForm = ({
 		e.preventDefault();
 		setStyle(formState);
 	};
+
+	useEffect(()=>{
+		console.log(formState)
+	}, [formState])
 
 	return (
 		<>
@@ -78,7 +79,7 @@ export const ArticleParamsForm = ({
 						}
 					/>
 					<RadioGroup
-						name=''
+						name='fontSize'
 						options={fontSizeOptions}
 						selected={formState.fontSizeOption}
 						title='размер шрифта'
