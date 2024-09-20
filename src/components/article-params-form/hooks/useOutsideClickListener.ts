@@ -4,33 +4,34 @@ type useOutsideClickListener = {
 	isOpen: boolean;
 	onChange: (newValue: boolean) => void;
 	onClose?: () => void;
-	rootRef: React.RefObject<HTMLDivElement>;
+	OverlayRef: React.RefObject<HTMLDivElement>;
 };
 
 export const useOutsideClickListener = ({
 	isOpen,
-	rootRef,
+	OverlayRef: OverlayRef,
 	onClose,
 	onChange,
 }: useOutsideClickListener) => {
 	useEffect(() => {
+		// Если форма не открыта, то ничего не делаем!
+		if (!isOpen) {
+			return;
+		}
 		const handleClick = (event: MouseEvent) => {
-			console.log('click');
 			const { target } = event;
-			if (target instanceof Node && !rootRef.current?.contains(target)) {
+			// Если кликнули на Overlay,  то закрываем форму
+			if (target instanceof Node && OverlayRef.current?.contains(target)) {
 				isOpen && onClose?.();
 				onChange?.(false);
-				console.log('outside');
-			} else {
-				console.log('inside');
 			}
 		};
-		if (isOpen) {
-			window.addEventListener('click', handleClick);
-		}
 
+		// Добавляем обработчик события
+		window.addEventListener('click', handleClick);
+		// Удаляем обработчик события при изменении зависимостей
 		return () => {
 			window.removeEventListener('click', handleClick);
 		};
-	}, [onClose, onChange, isOpen]);
+	}, [isOpen]);
 };

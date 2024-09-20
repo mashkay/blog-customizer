@@ -14,8 +14,13 @@ export const useOutsideClickClose = ({
 	onChange,
 }: UseOutsideClickClose) => {
 	useEffect(() => {
+		// НЕ должны висеть слушатели событий, если дропдаун закрыт
+		if (!isOpen) {
+			return;
+		}
 		const handleClick = (event: MouseEvent) => {
 			const { target } = event;
+
 			if (target instanceof Node && !rootRef.current?.contains(target)) {
 				isOpen && onClose?.();
 				onChange?.(false);
