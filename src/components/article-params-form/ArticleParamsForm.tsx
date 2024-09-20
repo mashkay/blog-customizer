@@ -2,7 +2,7 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 
 import styles from './ArticleParamsForm.module.scss';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useOutsideClickListener } from './hooks/useOutsideClickListener';
 import {
@@ -17,6 +17,7 @@ import {
 import { Select } from '../select';
 import { RadioGroup } from '../radio-group';
 import { Separator } from '../separator';
+import { Text } from '../text';
 
 type ArticleParamsFormProps = {
 	setStyle: (style: ArticleStateType) => void;
@@ -51,10 +52,6 @@ export const ArticleParamsForm = ({
 		setStyle(formState);
 	};
 
-	useEffect(()=>{
-		console.log(formState)
-	}, [formState])
-
 	return (
 		<>
 			<div
@@ -69,7 +66,9 @@ export const ArticleParamsForm = ({
 			<aside
 				className={clsx(styles.container, formIsOpen && styles.container_open)}>
 				<form className={styles.form} onSubmit={handleSubmit}>
-					<h2 className={styles.form__title}>Задайте параметры</h2>
+					<Text size={31} weight={800} uppercase={true}>
+						Задайте параметры
+					</Text>
 					<Select
 						selected={formState.fontFamilyOption}
 						options={fontFamilyOptions}
