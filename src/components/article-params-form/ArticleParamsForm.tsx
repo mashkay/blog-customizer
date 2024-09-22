@@ -21,13 +21,9 @@ import { Text } from '../text';
 
 type ArticleParamsFormProps = {
 	setStyle: (style: ArticleStateType) => void;
-	styleState: ArticleStateType;
 };
 
-export const ArticleParamsForm = ({
-	setStyle,
-	styleState,
-}: ArticleParamsFormProps) => {
+export const ArticleParamsForm = ({ setStyle }: ArticleParamsFormProps) => {
 	// Логика отвечающая за открытие/закрытие формы
 	const [formIsOpen, setFormIsOpen] = useState<boolean>(false);
 
@@ -40,7 +36,8 @@ export const ArticleParamsForm = ({
 	});
 
 	// сохраняем состояние формы в стейте
-	const [formState, setFormState] = useState<ArticleStateType>(styleState);
+	const [formState, setFormState] =
+		useState<ArticleStateType>(defaultArticleState);
 
 	const handleReset = () => {
 		setFormState(defaultArticleState);
