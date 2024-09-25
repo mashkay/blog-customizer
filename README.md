@@ -1,4 +1,4 @@
-# Проектная работа: Вёрстка проекта
+# Проектная работа: Вёрстка проекта text
 
 https://github.com/mashkay/blog-customizer/
 
